@@ -1,0 +1,19 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Run WebdriverIO Tests (Headless)",
+      "type": "shell",
+      "command": "npm run wdio",
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Run WebdriverIO Tests (Headed)",
+      "type": "shell",
+      "command": "npx wdio run wdio.conf.ts --headless=false",
+      "group": "test",
+      "problemMatcher": []
+    }
+  ]
+}
