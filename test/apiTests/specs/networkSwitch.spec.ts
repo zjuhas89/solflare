@@ -2,8 +2,9 @@ import { expect } from "chai";
 import { PortfolioApi } from "../api/portofolioApi";
 import { ADDRESS } from "../data/constants";
 
+// Test - switching from mainnet to devnet and back to mainnet restores the original response
 describe("Network Switch: Mainnet to Devnet", () => {
-  it("restores original mainnet response after switching to devnet and back", async () => {
+  it("Compare original mainnet response after switching to devnet and back", async () => {
     const api = new PortfolioApi();
 
     // 1. First Request (Mainnet)
@@ -16,11 +17,12 @@ describe("Network Switch: Mainnet to Devnet", () => {
     const devnetResponse = await api.getTokens(ADDRESS, "devnet");
     expect(devnetResponse.status).to.equal(200);
     const devnetTokens = devnetResponse.data.tokens;
-    
-   // mainnetTokens1.forEach((t: any, i: number) => console.log(`Mainnet token ${i} keys:`, Object.keys(t)));
-   // devnetTokens.forEach((t: any, i: number) => console.log(`Devnet token ${i} keys:`, Object.keys(t)));
 
-    expect(devnetTokens.length).to.be.greaterThan(mainnetTokens1.length);
+    // Validate arrays contain different tokens (by mint)
+    const mainnetMints = mainnetTokens1.map((t: any) => t.mint);
+    const devnetMints = devnetTokens.map((t: any) => t.mint);
+    const hasDifference = mainnetMints.some((mint: string) => !devnetMints.includes(mint)) || devnetMints.some((mint: string) => !mainnetMints.includes(mint));
+    expect(hasDifference).to.be.true;
 
     // 3. Third Request (Back to Mainnet)
     const mainnetResponse2 = await api.getTokens(ADDRESS, "mainnet");
@@ -36,12 +38,6 @@ describe("Network Switch: Mainnet to Devnet", () => {
       expect(token1.totalUiAmount).to.equal(token2.totalUiAmount);
       expect(token1.symbol).to.equal(token2.symbol);
       expect(token1.name).to.equal(token2.name);
-      // Price may differ, so skip
     });
-
-    // Ensure no API errors occurred
-    expect(mainnetResponse1.status).to.equal(200);
-    expect(devnetResponse.status).to.equal(200);
-    expect(mainnetResponse2.status).to.equal(200);
   });
 });

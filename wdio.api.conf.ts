@@ -30,13 +30,6 @@ export const config: Options.Testrunner = {
         args: ['--headless', '--disable-gpu', '--window-size=1280,800']
       }
     },
-    {
-      maxInstances: 1,
-      browserName: 'firefox',
-      'moz:firefoxOptions': {
-        args: ['-headless']
-      }
-    }
   ],
 
   waitforTimeout: 5000

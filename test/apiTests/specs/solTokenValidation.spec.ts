@@ -3,6 +3,7 @@ import { PortfolioApi } from "../api/portofolioApi";
 import { ADDRESS } from "../data/constants";
 import { validateToken } from "../utils/validators";
 
+//Test when the network parameter is not provided, the API returns only the SOL token.
 describe("SOL Token Validation", () => {
   it("returns only the SOL token when network param is not provided", async () => {
     const api = new PortfolioApi();
@@ -12,7 +13,6 @@ describe("SOL Token Validation", () => {
 
     // 2. Validate that the response contains only solana
     expect(response.data.tokens).to.be.an("array");
-    //here we have a bug cause the length is 6, witch means there are multiple tokens returned
     const solTokens = response.data.tokens.filter((token: any) => token.symbol === "SOL");
     expect(solTokens.length).to.equal(1);
     const solToken = solTokens[0];

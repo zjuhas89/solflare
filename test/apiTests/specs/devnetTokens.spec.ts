@@ -3,7 +3,7 @@ import { PortfolioApi } from "../api/portofolioApi";
 import { ADDRESS } from "../data/constants";
 import { validateToken, validatePrice } from "../utils/validators";
 
-// Test suite for validating the devnet tokens returned by the portfolio API
+// Test for Verify that the API correctly returns devnet-specific tokens when the network=devnetparameter is used.
 // Ensures the API returns multiple tokens, and each token has valid structure and price info
 describe("Devnet Token Validation", () => {
   it("returns devnet tokens", async () => {
@@ -18,10 +18,10 @@ describe("Devnet Token Validation", () => {
     // Assert that the response contains more than one token (not just SOL)
     expect(response.data.tokens.length).to.be.greaterThan(1);
 
-    // For each token, validate its structure and price fields
+    // For each token, validate its structure (required token and valid price) and price fields
     response.data.tokens.forEach((token: any) => {
-      validateToken(token);      // Checks for required token fields
-      validatePrice(token);      // Checks for valid price structure if present
+      validateToken(token);      
+      validatePrice(token);      
     });
   });
 });

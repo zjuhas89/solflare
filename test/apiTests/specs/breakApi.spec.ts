@@ -2,6 +2,7 @@ import { expect } from "chai";
 import axios from "axios";
 import { getAuthHeader } from "../utils/auth";
 
+//Test for : intentionally break the API by sending unexpected data
 describe("Break API", () => {
   it("should return an error for unexpected data", async () => {
     // Send a GET request to an invalid endpoint to intentionally break the API
