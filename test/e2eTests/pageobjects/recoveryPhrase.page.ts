@@ -26,24 +26,24 @@ class RecoveryPhrase extends Page {
     public get btnContinue() { return $('button=Continue'); }
 
     async getRecoveryPhrases(): Promise<string[]> {
-    const words: string[] = [];
+        const words: string[] = [];
 
-     for (let i = 1; i <= 12; i++) {
-        const input = await $(`[data-testid="input-recovery-phrase-${i}"]`);
-        await input.waitForDisplayed();
-        words.push(await input.getValue());
-     }
-     return words;
-   }
-
-   async enterRecoveryPhrase(words: string[]): Promise<void> {
-    for (let i = 0; i < words.length; i++) {
-        const input = await $(`[data-testid="input-recovery-phrase-${i + 1}"]`);
-        await input.waitForDisplayed();
-        await input.setValue(words[i]);
-    }
+        for (let i = 1; i <= 12; i++) {
+            const input = await $(`[data-testid="input-recovery-phrase-${i}"]`);
+            await input.waitForDisplayed();
+            words.push(await input.getValue());
+        }
+        return words;
     }
 
+    async enterRecoveryPhrase(words: string[]): Promise<void> {
+        for (let i = 0; i < words.length; i++) {
+            const input = await $(`[data-testid="input-recovery-phrase-${i + 1}"]`);
+            await input.waitForDisplayed();
+            await input.setValue(words[i]);
+        }
     }
+
+}
 
 export default new RecoveryPhrase();

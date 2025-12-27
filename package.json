@@ -29,5 +29,8 @@
     "uuid": "^13.0.0",
     "wdio-chromedriver-service": "^8.1.1",
     "webdriverio": "^8.46.0"
+  },
+  "dependencies": {
+    "winston": "^3.19.0"
   }
 }
