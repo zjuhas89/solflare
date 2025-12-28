@@ -19,17 +19,27 @@ export const config: Options.Testrunner = {
     // Parallelization and browser capabilities
     maxInstances: 1,
     // Allow browser selection via BROWSER env variable (chrome or firefox)
+    // Allow headless/headed selection via HEADLESS env variable (default: headless)
     capabilities: (() => {
         const browser = process.env.BROWSER || 'all';
+        const headless = process.env.HEADLESS !== 'false'; // default true
+        const chromeOptions = headless
+            ? { 'goog:chromeOptions': { args: ['--headless', '--disable-gpu', '--window-size=1280,800'] } }
+            : { 'goog:chromeOptions': { args: ['--window-size=1280,800'] } };
+        const firefoxOptions = headless
+            ? { 'moz:firefoxOptions': { args: ['-headless'] } }
+            : { 'moz:firefoxOptions': { args: [] } };
         if (browser === 'chrome') {
             return [{
                 maxInstances: 1,
                 browserName: 'chrome',
+                ...chromeOptions
             }];
         } else if (browser === 'firefox') {
             return [{
                 maxInstances: 1,
                 browserName: 'firefox',
+                ...firefoxOptions
             }];
         } else {
             // Default: run both Chrome and Firefox
@@ -37,16 +47,18 @@ export const config: Options.Testrunner = {
                 {
                     maxInstances: 1,
                     browserName: 'chrome',
+                    ...chromeOptions
                 },
                 {
                     maxInstances: 1,
                     browserName: 'firefox',
+                    ...firefoxOptions
                 }
             ];
         }
     })(),
     // Logging and timeouts
-    logLevel: 'info',
+    logLevel: 'error',
     bail: 0,
     waitforTimeout: 10000,
     connectionRetryTimeout: 120000,

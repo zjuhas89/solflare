@@ -3,7 +3,7 @@ import { $ } from '@wdio/globals';
 
 class RecoveryPhrase extends Page {
     // Button to start onboarding and create a new wallet.
-    public get btnNewWallet() { return $('button=I need a new wallet'); }
+    public get btnNewWallet() { return $('[data-testid="btn-need-new-wallet"]'); }
 
     // Separate locators for each of the 12 recovery phrase words using data-testid
     public get recoveryWord1() { return $('[data-testid="input-recovery-phrase-1"]'); }
