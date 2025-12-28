@@ -8,8 +8,15 @@ This project contains end-to-end (E2E) and API automated tests for Solflare onbo
 - **Google Chrome** browser
 - **Mozilla Firefox** browser
 - **Winston** logger (installed automatically via `npm install`)
+- **Mocha** test framework (installed automatically via `npm install`)
+- **Chai** assertion library (installed automatically via `npm install`)
 
+> Mocha is required as the test runner - Chai is used for assertions in all tests. Both are included in the project dependencies, but you can install them manually if needed:
+> ```sh
+> npm install --save-dev mocha chai
+> ```
 > **Note:** Both Chrome and Firefox must be installed locally to run all tests. You can run tests in a specific browser (see below).
+>
 
 ## Project Setup
 1. **Clone the repository** :
@@ -19,27 +26,12 @@ This project contains end-to-end (E2E) and API automated tests for Solflare onbo
 
 2. **Install TypeScript and WebdriverIO**
 
-If you do not have TypeScript or WebdriverIO installed globally, you can install them as follows:
+Install TypeScript and WebdriverIO CLI as dev dependencies:
 
-- **Install TypeScript globally (optional, for CLI usage):**
-  ```sh
-  npm install -g typescript
-  ```
-  Or as a dev dependency (recommended):
-  ```sh
-  npm install --save-dev typescript
-  ```
-
-- **Install WebdriverIO CLI globally (optional, for CLI usage):**
-  ```sh
-  npm install -g @wdio/cli
-  ```
-  Or as a dev dependency (recommended):
-  ```sh
-  npm install --save-dev @wdio/cli
-  ```
-
-> All required packages for running tests are already included in the project dependencies. Only install globally if you want to use the CLI directly.
+```sh
+npm install --save-dev typescript @wdio/cli
+```
+> This ensures everyone uses the same versions and avoids global conflicts.
 
 ## Logging: logger.ts
 - The project uses a custom logger defined in `test/utils/logger.ts`, which is based on the [Winston](https://github.com/winstonjs/winston) logging library.
@@ -57,8 +49,8 @@ If you do not have TypeScript or WebdriverIO installed globally, you can install
 - logs folder is added to .gitignore
 
 ### How to Add Winston Logger to Your Project
-
-To add Winston logger to your own project, install it with:
+Winston should be autamaticaly added to the project via npm install because it is inside package.json file.
+If somehow is not working - to add Winston logger to your own project, install it with:
 ```sh
 npm install winston
 ```

@@ -14,10 +14,9 @@ before(async () => {
 });
 
 describe('Solflare Onboarding E2E', () => {
-    it('should Create new wallet and manage add aditional wallets', async () => {
+    it('Create new wallet and manage / add additional wallets', async () => {
 
         // 2. Click on button I need a new wallet
-        await recoveryPhrase.btnNewWallet.waitForDisplayed({ timeout: 10000 });
         await recoveryPhrase.btnNewWallet.click();
         logger.info('Clicked "I need a new wallet"');
 
